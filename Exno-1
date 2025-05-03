@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <string.h>
+
+int isAcceptedByDFA(const char *input) {
+    int state = 0;
+    int len = strlen(input);
+    if (len == 0)
+        return 0;
+    for (int i = 0; i < len; i++) {
+        char ch = input[i];
+        switch (state) {
+            case 0:
+                if (ch == 'a')
+                    state = 1;
+                else
+                    state = 2;
+                break;
+            case 1:
+                if (ch == 'a' || ch == 'b')
+                    state = 1;
+                else
+                    state = 2;
+                break;
+            case 2:
+                return 0;
+        }
+    }
+    return (state == 1 && input[len - 1] == 'a');
+}
+
+int main() {
+    const char input[] = "aba"; // ✅ Set your input string here
+
+    printf("Input string: %s\n", input);
+    if (isAcceptedByDFA(input))
+        printf("Accepted by the DFA.\n");
+    else
+        printf("Rejected by the DFA.\n");
+
+    return 0;
+}
