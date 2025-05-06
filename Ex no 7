@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+
+bool isInLanguage(const char *str) {
+    int len = strlen(str);
+    for (int i = 0; i <= len - 3; i++) {
+        if (str[i] == '1' && str[i+1] == '0' && str[i+2] == '1') {
+            for (int j = 0; j < len; j++) {
+                if (str[j] != '0' && str[j] != '1') return false;
+            }
+            return true;
+        }
+    }
+    return false;
+}
+
+int main() {
+    char input[100];
+    printf("Enter a binary string: ");
+    scanf("%s", input);
+    if (isInLanguage(input))
+        printf("The string is accepted by the CFG.\n");
+    else
+        printf("The string is rejected by the CFG.\n");
+    return 0;
+}
