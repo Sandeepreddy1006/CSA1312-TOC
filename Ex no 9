@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+
+bool simulateNFA(const char *str) {
+    int len = strlen(str);
+    if (len < 2) return false;
+    if (str[0] != 'o' || str[len - 1] != '1') return false;
+    for (int i = 0; i < len; i++) {
+        if (str[i] != 'o' && str[i] != '1') return false;
+    }
+    return true;
+}
+
+int main() {
+    char input[100];
+    printf("Enter a string: ");
+    scanf("%s", input);
+    if (simulateNFA(input))
+        printf("The string is accepted by the NFA.\n");
+    else
+        printf("The string is rejected by the NFA.\n");
+    return 0;
+}
