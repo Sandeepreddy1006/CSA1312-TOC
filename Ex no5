@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+
+bool isValid(const char *str, int start, int end) {
+    if (start > end) return true;
+    if (str[start] == '0' && str[end] == '0') return isValid(str, start + 1, end - 1);
+    for (int i = start; i <= end; i++) {
+        if (str[i] != '1') return false;
+    }
+    return true;
+}
+
+int main() {
+    char input[100];
+    printf("Enter a binary string: ");
+    scanf("%s", input);
+    if (isValid(input, 0, strlen(input) - 1))
+        printf("The string is accepted by the CFG.\n");
+    else
+        printf("The string is rejected by the CFG.\n");
+    return 0;
+}
