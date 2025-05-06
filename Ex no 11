@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+#define MAX 100
+
+int epsilon[MAX][MAX];
+int closure[MAX][MAX];
+int visited[MAX];
+int n;
+
+void dfs(int start, int state) {
+    if (!visited[state]) {
+        visited[state] = 1;
+        closure[start][state] = 1;
+        for (int i = 0; i < n; i++) {
+            if (epsilon[state][i]) dfs(start, i);
+        }
+    }
+}
+
+int main() {
+    printf("Enter number of states: ");
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            epsilon[i][j] = 0;
+            closure[i][j] = 0;
+        }
+    }
+    for (int i = 0; i < n; i++) {
+        printf("Enter number of ε-transitions from state %d: ", i);
+        int count, to;
+        scanf("%d", &count);
+        printf("Enter destination states: ");
+        for (int j = 0; j < count; j++) {
+            scanf("%d", &to);
+            epsilon[i][to] = 1;
+        }
+    }
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) visited[j] = 0;
+        dfs(i, i);
+    }
+    printf("\nEpsilon-closures:\n");
+    for (int i = 0; i < n; i++) {
+        printf("ε-closure(%d): { ", i);
+        for (int j = 0; j < n; j++) {
+            if (closure[i][j]) printf("%d ", j);
+        }
+        printf("}\n");
+    }
+    return 0;
+}
